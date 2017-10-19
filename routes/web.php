@@ -32,5 +32,9 @@ Route::group(['prefix' => '/_7admin', 'namespace' => 'Admin', 'as' => 'admin.'],
 	Route::resource('income', 'IncomeController');
 	Route::resource('settlement', 'SettlementController');
 	Route::resource('withdrawal', 'WithdrawalController');
+    Route::resource('withdrawalpaid', 'WithdrawlPaidController');
+    Route::resource('profiles', 'CustomersController');
+    Route::resource('service_center', 'Service_centerController');
+
 });
 

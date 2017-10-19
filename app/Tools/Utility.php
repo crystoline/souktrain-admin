@@ -12,7 +12,7 @@ namespace App\Tools;
 class Utility
 {
     public static function json($response){
-        return response()->json($response);
+        return response()->json($response)->header('Access-Control-Allow-Origin','*');
     }
 
     public static function json_success($data){

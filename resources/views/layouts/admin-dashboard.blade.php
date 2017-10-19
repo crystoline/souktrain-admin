@@ -372,15 +372,23 @@
             </li>
 
             <li>
-                <a href="{{ route('admin.settlement.index') }}" data-ajax="true">
+                <a href="{{ route('admin.withdrawal.index') }}" data-ajax="true">
                     <div class="pull-left">
                         <i class="zmdi zmdi-money mr-20"></i>
-                        <span class="right-nav-text">Withdrawal</span>
+                        <span class="right-nav-text">Withdrawal | Request</span>
                     </div>
                     <div class="clearfix"></div>
                 </a>
             </li>
-
+            <li>
+                <a href="{{ route('admin.withdrawalpaid.index') }}" data-ajax="true">
+                    <div class="pull-left">
+                        <i class="zmdi zmdi-money mr-20"></i>
+                        <span class="right-nav-text">Withdrawal | Paid</span>
+                    </div>
+                    <div class="clearfix"></div>
+                </a>
+            </li>
             <li class="navigation-header">
                 <span>Souktrain</span>
                 <i class="zmdi zmdi-more"></i>
@@ -406,6 +414,15 @@
                 </a>
             </li>
 
+            <li>
+                <a href="{{ route('admin.profiles.index') }}" data-ajax="true">
+                    <div class="pull-left">
+                        <i class="zmdi zmdi-money-off mr-20"></i>
+                        <span class="right-nav-text">Profiles</span>
+                    </div>
+                    <div class="clearfix"></div>
+                </a>
+            </li>
 
             <li>
                 <a  href="javascript:void(0);" data-toggle="collapse" data-target="#dashboard_dr"><div class="pull-left"><i class="zmdi zmdi-landscape mr-20"></i><span class="right-nav-text">Multi</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>

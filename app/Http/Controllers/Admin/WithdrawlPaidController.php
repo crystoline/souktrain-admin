@@ -1,12 +1,14 @@
 <?php
 
+
+
 namespace App\Http\Controllers\Admin;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
 
-class WithdrawalController extends Controller
+
+class WithdrawlPaidController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +17,9 @@ class WithdrawalController extends Controller
      */
     public function index()
     {
-        $withdrawals = DB::table('user_account_withdraw') ->where('status', 'pending')->get();
+        $withdrawals = DB::table('user_account_withdraw') ->where('status', 'paid')->get();
 
-        return view( 'admin.withdraw.index', [ 'withdrawals' => $withdrawals ] );
+        return view( 'admin.withdrawalpaid.index', [ 'withdrawals' => $withdrawals ] );
     }
 
     /**
@@ -27,7 +29,7 @@ class WithdrawalController extends Controller
      */
     public function create()
     {
-
+        //
     }
 
     /**
@@ -48,12 +50,13 @@ class WithdrawalController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
+
     {
+        $withdraw_id = request()->segment(3);
 
 
+        return view( 'admin.withdrawalpaid.show', [ 'withdraw_id' => $withdraw_id ] );
     }
-
-
 
     /**
      * Show the form for editing the specified resource.
@@ -63,9 +66,7 @@ class WithdrawalController extends Controller
      */
     public function edit($id)
     {
-        $withdraw_id = request()->segment(3);
-        // echo $withdraw_id;
-        return view( 'admin.withdraw.edit', ['withdraw_id'=> $withdraw_id] );
+        //
     }
 
     /**
@@ -76,28 +77,10 @@ class WithdrawalController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-
-    {   $validator = Validator::make(
-        $request->only( [ 'details' ] ),
-        [
-            'details'  => 'required'
-
-        ]
-    );
-
-        if ( $validator->fails() ) {
-            return redirect()->route('admin.withdrawal.edit', ['withdraw' => $id])
-                ->withErrors( $validator )
-                ->withInput();
-        }
-
-     echo  $id = request()->segment(3);
-       $pay = DB::table('user_account_withdraw')
-            ->where('id', $id)
-            ->update(['status' => 'paid','details' => $request->details,'updated_at' =>date("Y-m-d H:i:s")]);
-       var_dump($pay);
-        return redirect()->route( 'admin.withdrawal.index' );
+    {
+        //
     }
+
     /**
      * Remove the specified resource from storage.
      *

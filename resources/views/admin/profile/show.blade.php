@@ -19,7 +19,7 @@
 
             <div class="panel-body">
 
-                 <img src="{{ $profile->picture_url }}"  width="200px" height="200px"></img><br>
+                 
                 <table class="table  table-hover" >
                     <tr> <th>Name:</th><td> {{ $profile->first_name }} {{ $profile->last_name }}</td></tr>
                     <tr><th> Gender:</th><td> {{ $profile->gender}}</td></tr>

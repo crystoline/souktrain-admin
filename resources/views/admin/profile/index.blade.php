@@ -48,7 +48,7 @@
                             <i class="fa fa-folder"></i>
                             view
                         </a> </th>
-                
+
                 @endforeach
             </tbody>
         </table>

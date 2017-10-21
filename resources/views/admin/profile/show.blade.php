@@ -1,6 +1,10 @@
 
 <div class="row">
-    <div class="col-md-5">
+
+
+
+    <div class="col-md-4">
+
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3>View Profile
@@ -12,14 +16,16 @@
 
                // $profile_update = DB::table('profile_update')->where('user_id', $profile->user_id)->first();
                 $upline = DB::table('profiles')->where('referral_id', $profile->referral_id)->first();
-
+                $profile_update = DB::table('profile_update')->where('user_id', $profile->user_id)->first();
+                $bank_account = DB::table('account_info')->where('user_id', $profile->user_id)->first();
                 ?>
 
             </div>
 
+
             <div class="panel-body">
 
-                 
+
                 <table class="table  table-hover" >
                     <tr> <th>Name:</th><td> {{ $profile->first_name }} {{ $profile->last_name }}</td></tr>
                     <tr><th> Gender:</th><td> {{ $profile->gender}}</td></tr>
@@ -31,11 +37,104 @@
 
 
                 </table>
+
+                <a class="btn btn-lg btn-default" href="{{ route('admin.profiles.index') }}" data-ajax="true">
+                    <i class="fa fa-check-back-arrow"></i>
+                    Back
+                </a>
+            </div>
+
+
+
+
+        </div>
+    </div>
+    <div class="col-md-4">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>Profile Update information
+
+                </h3>
+
+
+            </div>
+
+            <div class="panel-body">
+                <?php if( !empty($profile_update) )
+                    {
+
+
+
+                    ?>
+
+                <table class="table  table-hover " >
+
+                    <tr> <th>Address:</th><td> {{ $profile_update->address }}</td></tr>
+                    <tr><th> Date of Birth:</th><td> {{ $profile_update->dob}}</td></tr>
+                    <tr><th>Mother's Maiden Name</th><td> {{ $profile_update->maiden}}</td></tr>
+
+                    <tr><th> Date Created:</th><td>{{ $profile_update->created_at }}</td></tr>
+                    <tr><th>Date Editted:</th><td> {{ $profile_update->updated_at }}</td></tr>
+
+
+                </table>
+
                 <a class="btn btn-lg btn-default" href="{{ route('admin.profiles.index') }}" data-ajax="true">
                     <i class="fa fa-check-back-arrow"></i>
                     Back
                 </a>
 
+
+                <?php }else{
+                        echo  '<div class="alert class="alert alert-info"> Profile Update Not Available!!</div>';
+                    } ?>
+            </div>
+
+
+
+
+        </div>
+    </div>
+    <div class="col-md-4">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>Bank Account details
+
+                </h3>
+
+
+            </div>
+
+            <div class="panel-body">
+                <?php if( $bank_account == NULL )
+                {
+                    echo  '<div class="alert alert danger"> Profile Update Not Available!!</div>';
+
+                }else{
+                    ?>
+
+
+                <table class="table  table-hover" >
+                    <tr> <th>Account Name:</th><td> {{ $bank_account->account_name }} </td></tr>
+                    <tr><th> Account No:</th><td> {{ $bank_account->account_no}}</td></tr>
+                    <tr><th>Account Type</th><td> {{ $bank_account->acc_type}}</td></tr>
+                    <tr><th>Phone No:</th><td> {{ $bank_account->phone_no }}</td></tr>
+                    <tr><th> Bank:</th><td> {{ $bank_account->bank }} </td></tr>
+                    <tr><th>Branch:</th><td> {{ $bank_account->bank_branch }}</td></tr>
+                    <tr><th> Country:</th><td> {{ $bank_account-> country }} {{ $upline->last_name }}</td></tr>
+                    <tr><th> Date Created:</th><td>{{ $bank_account->created_at }}</td></tr>
+                    <tr><th>Date Editted:</th><td> {{ $bank_account->updated_at }}</td></tr>
+
+
+                </table>
+
+                <a class="btn btn-lg btn-default" href="{{ route('admin.profiles.index') }}" data-ajax="true">
+                    <i class="fa fa-check-back-arrow"></i>
+                    Back
+                </a>
+                    <?php } ?>
             </div>
 
 
@@ -44,6 +143,7 @@
         </div>
     </div>
 </div>
+
 <script>
     $(function () {
         @if($message = session('notify-msg'))

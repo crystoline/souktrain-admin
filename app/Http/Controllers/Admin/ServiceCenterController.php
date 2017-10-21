@@ -1,13 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-use App\UserAccountWithdraw;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-
-class WithdrawalController extends Controller
+class ServiceCenterController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,11 +14,9 @@ class WithdrawalController extends Controller
      */
     public function index()
     {
-        //$withdrawals = DB::table('user_account_withdraw') ->where('status', 'pending')->get();
+        $service_centers = DB::table('servic_centers')->get();
 
-	    $withdrawals = UserAccountWithdraw::where('status', 'pending')->get();
-
-        return view( 'admin.withdraw.index', [ 'withdrawals' => $withdrawals ] );
+        return view( 'admin.service_center.index', [ 'service_centers' => $service_centers ] );
     }
 
     /**
@@ -30,7 +26,7 @@ class WithdrawalController extends Controller
      */
     public function create()
     {
-
+        //
     }
 
     /**
@@ -53,10 +49,7 @@ class WithdrawalController extends Controller
     public function show($id)
     {
 
-
     }
-
-
 
     /**
      * Show the form for editing the specified resource.
@@ -66,9 +59,11 @@ class WithdrawalController extends Controller
      */
     public function edit($id)
     {
-        $withdraw_id = request()->segment(3);
-        // echo $withdraw_id;
-        return view( 'admin.withdraw.edit', ['withdraw_id'=> $withdraw_id] );
+        $serviceCenter_id = request()->segment(3);
+        $service_center = DB::table('servic_centers')->where('id',$serviceCenter_id)->first();
+        $profile = DB::table('profiles')->where('user_id', $service_center->user_id)->first();
+
+        return view( 'admin.service_center.edit', ['service_center'=> $service_center,'profile' => $profile] );
     }
 
     /**
@@ -79,28 +74,25 @@ class WithdrawalController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
+    {
 
-    {   $validator = Validator::make(
-        $request->only( [ 'details' ] ),
-        [
-            'details'  => 'required'
+       $id = request()->segment(3);
+        $service_center = DB::table('servic_centers')->where('id',$id)->first();
+     //var_dump($service_center);
 
-        ]
-    );
+          if($service_center->status ==='0') {
+              $status ='1';
+          }else{
+              $status ='0';
+          }
+        DB::table('servic_centers')
+          ->where('id', $id)
+            ->update(['status' => $status,'updated_at' =>date("Y-m-d H:i:s")]);
 
-        if ( $validator->fails() ) {
-            return redirect()->route('admin.withdrawal.edit', ['withdraw' => $id])
-                ->withErrors( $validator )
-                ->withInput();
-        }
 
-      $id = request()->segment(3);
-       $pay = DB::table('user_account_withdraw')
-            ->where('id', $id)
-            ->update(['status' => 'paid','details' => $request->details,'updated_at' =>date("Y-m-d H:i:s")]);
-
-        return redirect()->route( 'admin.withdrawal.index' );
+        return redirect()->route( 'admin.service_center.index' );
     }
+
     /**
      * Remove the specified resource from storage.
      *

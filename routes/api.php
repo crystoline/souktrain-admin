@@ -17,7 +17,22 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('auth:api')->get('/auth', function (Request $request) {
+Route::any('/auth', function (Request $request){
+	$username = $request->input('username');
+	$password = $request->input('password');
+	$user = \App\User::where('email', $username)->orWhere('username', $username)->get()->first();
+
+	$response = [];
+
+	if($username and  $user and \Illuminate\Support\Facades\Hash::check($password, $user->password)){
+		$response = [
+			'username' => $username,
+			'token'     => $user->api_token
+		];
+
+	}
+
+	return response()->json($response)->header('Access-Control-Allow-Origin','*');
 
 });
 
@@ -38,7 +53,7 @@ Route::get('/route',function(){
 });
 
 
-Route::group(['namespace'=>'Api', 'middleware' => []],function() {
+Route::group(['namespace'=>'Api', 'middleware' => ['auth:api']],function() {
 	Route::get('/users', ['as' => 'api.users', 'uses' => 'UserController@index']);
 
 	Route::group(['prefix' => '/users/{user}/', 'middleware' => [App\Http\Middleware\Api\UserMiddleware::class] ], function () {

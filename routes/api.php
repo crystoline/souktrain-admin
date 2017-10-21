@@ -53,8 +53,8 @@ Route::get('/route',function(){
 });
 
 
-Route::group(['namespace'=>'Api', 'middleware' => ['auth:api']],function() {
-	Route::get('/users', ['as' => 'api.users', 'uses' => 'UserController@index']);
+Route::group(['namespace'=>'Api', /*'middleware' => ['auth:api']*/],function() {
+	//Route::get('/users', ['as' => 'api.users', 'uses' => 'UserController@index']);
 
 	Route::group(['prefix' => '/users/{user}/', 'middleware' => [App\Http\Middleware\Api\UserMiddleware::class] ], function () {
 		Route::get('/', ['as' => 'api.user', 'uses' => 'UserController@show']);

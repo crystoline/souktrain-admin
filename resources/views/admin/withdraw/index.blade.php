@@ -31,7 +31,7 @@
                  <?php $i = 1;
                  //var_dump($profiles);?>
                 @foreach($withdrawals as $withdraw)
-                 <?php $profile = DB::table('profiles')->where('user_id', $withdraw->user_id)->first();
+                {{-- <?php $profile = DB::table('profiles')->where('user_id', $withdraw->user_id)->first();
                $user_acount_types = DB::table('user_account_types')->where('id', $withdraw->user_account_type_id)->first();
                  $account_info = DB::table('account_info')->where('user_id', $withdraw->user_id)->first();
                  if (!isset($account_info) or !isset($user_acount_types) or !isset($profile) or
@@ -39,10 +39,10 @@
                      echo'<div class="alert alert-danger">You must have </div>';
                      return ;
                  }
-                 ?>
+                 ?>--}}
                 <tr>
                     <th>{{ $i++ }}</th>
-                    <th><?php echo $profile->first_name .''. $profile->last_name ?></th>
+                    <th><?php echo $withdraw->user->profile->first_name .''. $withdraw->user->profile->last_name ?></th>
                     <th>{{ $user_acount_types->name }}</th>
                     <th>{{ $withdraw->amount }} </th>
                     <th>{{ $withdraw->transaction_fees }}   </th>

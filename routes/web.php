@@ -38,3 +38,8 @@ Route::group(['prefix' => '/_7admin', 'namespace' => 'Admin', 'as' => 'admin.'],
 
 });
 
+Route::group(['prefix' => 'agent', 'namespace' => 'Agent'] , function (){
+
+	Route:: resource('pin', 'PinController');
+});
+

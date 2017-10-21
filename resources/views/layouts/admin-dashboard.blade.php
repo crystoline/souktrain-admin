@@ -374,7 +374,7 @@
             <li>
                 <a href="{{ route('admin.withdrawal.index') }}" data-ajax="true">
                     <div class="pull-left">
-                        <i class="zmdi zmdi-money mr-20"></i>
+                        <i class="zmdi zmdi-money-box mr-20"></i>
                         <span class="right-nav-text">Withdrawal | Request</span>
                     </div>
                     <div class="clearfix"></div>
@@ -383,7 +383,7 @@
             <li>
                 <a href="{{ route('admin.withdrawalpaid.index') }}" data-ajax="true">
                     <div class="pull-left">
-                        <i class="zmdi zmdi-money mr-20"></i>
+                        <i class="zmdi zmdi-money-box mr-20"></i>
                         <span class="right-nav-text">Withdrawal | Paid</span>
                     </div>
                     <div class="clearfix"></div>
@@ -407,54 +407,32 @@
             <li>
                 <a href="{{ route('admin.settlement.index') }}" data-ajax="true">
                     <div class="pull-left">
-                        <i class="zmdi zmdi-money-off mr-20"></i>
+                        <i class="zmdi zmdi-money-box mr-20"></i>
                         <span class="right-nav-text">Settlements</span>
                     </div>
                     <div class="clearfix"></div>
                 </a>
             </li>
 
-            <li>
-                <a href="{{ route('admin.profiles.index') }}" data-ajax="true">
-                    <div class="pull-left">
-                        <i class="zmdi zmdi-money-off mr-20"></i>
-                        <span class="right-nav-text">Profiles</span>
-                    </div>
-                    <div class="clearfix"></div>
-                </a>
-            </li>
 
             <li>
-                <a  href="javascript:void(0);" data-toggle="collapse" data-target="#dashboard_dr"><div class="pull-left"><i class="zmdi zmdi-landscape mr-20"></i><span class="right-nav-text">Multi</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
+                <a  href="javascript:void(0);" data-toggle="collapse" data-target="#dashboard_dr"><div class="pull-left"><i class="zmdi zmdi-landscape mr-20"></i><span class="right-nav-text">Souktrain</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
                 <ul id="dashboard_dr" class="collapse collapse-level-1">
                     <li>
-                        <a class="active-page" href="index.html">Analytical</a>
+                        <a href="{{ route('admin.profiles.index') }}" data-ajax="true">profiles</a>
+
                     </li>
                     <li>
-                        <a href="index2.html">Demographic</a>
+                        <a href="{{ route('admin.service_center.index') }}" data-ajax="true">service centers</a>
                     </li>
-                    <li>
-                        <a href="index3.html">Project</a>
-                    </li>
-                    <li>
-                        <a href="index4.html">Hospital</a>
-                    </li>
-                    <li>
-                        <a href="index5.html">HRM</a>
-                    </li>
-                    <li>
-                        <a href="index6.html">Real Estate</a>
-                    </li>
-                    <li>
-                        <a href="profile.html">profile</a>
-                    </li>
+
                 </ul>
             </li>
 
 
             <li class="navigation-header">
                 <span>featured</span>
-                <i class="zmdi zmdi-more"></i>
+                <i class="zmdi zmdi-money-box mr-20"></i>
             </li>
         </ul>
     </div>

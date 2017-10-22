@@ -26,6 +26,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['prefix' => '/_7admin', 'namespace' => 'Admin', 'as' => 'admin.'], function (){
 	Route::get('/', [ 'uses' => "DashboardController@index", 'as' => 'dashboard']);
 
+	Route::resource('user', 'UserController');
+
 	Route::resource('plan', 'PlanController');
 	Route::resource('plan-condition', 'PlanConditionController');
 
@@ -36,10 +38,13 @@ Route::group(['prefix' => '/_7admin', 'namespace' => 'Admin', 'as' => 'admin.'],
     Route::resource('profiles', 'CustomersController');
     Route::resource('service_center', 'ServiceCenterController');
 
+	Route:: resource('pin-request', 'PinRequestController');
+	Route:: post('pin-request/{pin_request}/send', 'PinRequestController@send')->name('pin-request.send');
+
 });
 
-Route::group(['prefix' => 'agent', 'namespace' => 'Agent'] , function (){
+Route::group(['prefix' => 'agent', 'namespace' => 'Agent', 'as' => 'agent.'] , function (){
 
-	Route:: resource('pin', 'PinController');
+	Route:: resource('pin-request', 'PinRequestController');
 });
 

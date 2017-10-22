@@ -23,7 +23,12 @@ class Profile extends Model
         'my_id',
         'referral_id'
     ];
+
     public function user(){
         return $this->BelongsTo(User::class);
     }
+
+	public function accountInfo(){
+		return $this->hasOne(AccountInfo::class);
+	}
 }

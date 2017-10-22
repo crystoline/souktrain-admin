@@ -9,6 +9,9 @@
 namespace App\Tools;
 
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+
 class Utility
 {
     public static function json($response){
@@ -53,6 +56,27 @@ class Utility
         $response = self::response_array_status($status,$data,$code_name);
 
         return  self::json($response);
+    }
+
+
+    public static function gen_form_token(){
+    	$token =  rand(10000000,99999999);
+	    Session::put('my_form_token', $token);
+    	return $token;
+    }
+    public static function my_form_token_field(){
+	    $token =  self::gen_form_token();
+	    return "<input type='hidden' name='my_form_no_refresh' value='{$token}'>";
+    }
+
+    public static function confirm_form_token(Request $request){
+    	$prev_token = Session::get('my_form_token'); //dd($prev_token);
+    	if($prev_token and $prev_token == $request->input('my_form_no_refresh') ){
+		    Session::put('my_form_token', null);
+    		return true;
+	    }
+	    Session::put('my_form_token', null);
+	    false;
     }
 
 }

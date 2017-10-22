@@ -17,8 +17,7 @@ class WithdrawalController extends Controller
     public function index()
     {
         //$withdrawals = DB::table('user_account_withdraw') ->where('status', 'pending')->get();
-
-	    $withdrawals = UserAccountWithdraw::where('status', 'pending')->get();
+	    $withdrawals = UserAccountWithdraw::where('status', 0)->get();
 
         return view( 'admin.withdraw.index', [ 'withdrawals' => $withdrawals ] );
     }
@@ -57,18 +56,19 @@ class WithdrawalController extends Controller
     }
 
 
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param UserAccountWithdraw $withdraw
+	 *
+	 * @return \Illuminate\Http\Response
+	 * @internal param int $id
+	 */
+    public function edit(Request $request, $id)
     {
-        $withdraw_id = request()->segment(3);
-        // echo $withdraw_id;
-        return view( 'admin.withdraw.edit', ['withdraw_id'=> $withdraw_id] );
+    	//dd($request);
+	    $withdraw = UserAccountWithdraw::find($id);
+        return view( 'admin.withdraw.edit', ['withdraw'=> $withdraw] );
     }
 
     /**
@@ -78,26 +78,36 @@ class WithdrawalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
+    {
 
-    {   $validator = Validator::make(
-        $request->only( [ 'details' ] ),
-        [
-            'details'  => 'required'
+	    $withdraw = UserAccountWithdraw::find($id);
+	   // dd($withdraw->user);
 
-        ]
-    );
+	    $validator = Validator::make(
+	        $request->only( [ 'details' ] ),
+	        [
+	            'details'  => 'required',
+		        //'transaction_fee'  => 'required'
+	        ]
+	    );
 
         if ( $validator->fails() ) {
             return redirect()->route('admin.withdrawal.edit', ['withdraw' => $id])
                 ->withErrors( $validator )
                 ->withInput();
         }
+        $trans_fee = $request->input('transaction_fee');
 
-      $id = request()->segment(3);
-       $pay = DB::table('user_account_withdraw')
-            ->where('id', $id)
-            ->update(['status' => 'paid','details' => $request->details,'updated_at' =>date("Y-m-d H:i:s")]);
+        $pay = $withdraw->update([
+        	'status' => 1,
+	        'details' => $request->input('details'),
+	        'transaction_fee' => $trans_fee
+        ]);
+
+        if($trans_fee){
+	        $withdraw->user->accountTransaction($withdraw->userAccountType ,$trans_fee,  "Transaction fee for { $withdraw->userAccountType->name} withdrawal");
+        }
 
         return redirect()->route( 'admin.withdrawal.index' );
     }

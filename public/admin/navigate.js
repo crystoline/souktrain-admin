@@ -67,6 +67,9 @@ $(function(){
         var data = new FormData($(this)[0]);
 
         console.log(data);
+
+
+
         var title = (obj.attr('title'))? obj.attr('title'): url;
         var options = {
             url: url,

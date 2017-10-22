@@ -11,8 +11,7 @@ class CustomersController extends Controller
     //
     public function index() {
         $profiles = Profile::orderBy( 'first_name', 'ASC' )->get();
-
-        return view( 'admin.profile.index', [ 'profiles' => $profiles ] );
+        return view( 'admin.profile.index', [ 'profiles' => $profiles] );
     }
 
     /**

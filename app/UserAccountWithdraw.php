@@ -11,12 +11,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserAccountWithdraw extends Model
 {
+	protected $fillable = [
+		'status',
+		'details',
+		'transaction_fee'
+	];
 	protected $table = 'user_account_withdraw';
 	public function user(){
 		return $this->BelongsTo(User::class, 'user_id', 'id');
 	}
 
 	public function userAccountType(){
-		return $this->BelongsTo(userAccountType::class);
+		return $this->BelongsTo(userAccountType::class, 'user_account_type_id', 'id');
 	}
 }

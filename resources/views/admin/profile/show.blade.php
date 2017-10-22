@@ -17,7 +17,7 @@
                // $profile_update = DB::table('profile_update')->where('user_id', $profile->user_id)->first();
                 $upline = DB::table('profiles')->where('referral_id', $profile->referral_id)->first();
                 $profile_update = DB::table('profile_update')->where('user_id', $profile->user_id)->first();
-                $bank_account = DB::table('account_info')->where('user_id', $profile->user_id)->first();
+                $bank_account = DB::table('account_info')->where('profile_id', $profile->id)->first();
                 ?>
 
             </div>
@@ -53,7 +53,7 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3>Profile Update information
+                <h3>Other information
 
                 </h3>
 
@@ -61,13 +61,7 @@
             </div>
 
             <div class="panel-body">
-                <?php if( !empty($profile_update) )
-                    {
-
-
-
-                    ?>
-
+                @if( !empty($profile_update) )
                 <table class="table  table-hover " >
 
                     <tr> <th>Address:</th><td> {{ $profile_update->address }}</td></tr>
@@ -86,14 +80,10 @@
                 </a>
 
 
-                <?php }else{
-                        echo  '<div class="alert class="alert alert-info"> Profile Update Not Available!!</div>';
-                    } ?>
+                @else
+                    <div class="text text-danger"> Other information is not available!!</div>
+                @endif
             </div>
-
-
-
-
         </div>
     </div>
     <div class="col-md-4">
@@ -108,12 +98,9 @@
             </div>
 
             <div class="panel-body">
-                <?php if( $bank_account == NULL )
-                {
-                    echo  '<div class="alert alert danger"> Profile Update Not Available!!</div>';
-
-                }else{
-                    ?>
+                @if( empty($bank_account))
+                    <div class="text text-danger"> Profile Update Not Available!!</div>
+                @else
 
 
                 <table class="table  table-hover" >
@@ -134,7 +121,7 @@
                     <i class="fa fa-check-back-arrow"></i>
                     Back
                 </a>
-                    <?php } ?>
+                @endif
             </div>
 
 

@@ -344,7 +344,7 @@
                 <i class="zmdi zmdi-more"></i>
             </li>
             <li>
-                <a href="{{ route('admin.income.index') }}" data-ajax="true">
+                <a href="{{ route('admin.user.index') }}" data-ajax="true">
                     <div class="pull-left">
                         <i class="zmdi zmdi-money-box mr-20"></i>
                         <span class="right-nav-text">Users Accounts</span>
@@ -414,7 +414,15 @@
                 </a>
             </li>
 
-
+            <li>
+                <a href="{{ route('admin.pin-request.index') }}" data-ajax="true">
+                    <div class="pull-left">
+                        <i class="zmdi zmdi-money-box mr-20"></i>
+                        <span class="right-nav-text">Pin Requests</span>
+                    </div>
+                    <div class="clearfix"></div>
+                </a>
+            </li>
             <li>
                 <a  href="javascript:void(0);" data-toggle="collapse" data-target="#dashboard_dr"><div class="pull-left"><i class="zmdi zmdi-landscape mr-20"></i><span class="right-nav-text">Souktrain</span></div><div class="pull-right"><i class="zmdi zmdi-caret-down"></i></div><div class="clearfix"></div></a>
                 <ul id="dashboard_dr" class="collapse collapse-level-1">

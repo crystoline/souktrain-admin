@@ -28,37 +28,28 @@
             </tr>
             </thead>
             <tbody>
-            <?php $i = 1;
-            //var_dump($withdrawals);?>
+		    <?php $i = 1;
+		    //var_dump($profiles);?>
             @foreach($withdrawals as $withdraw)
-            <?php $profile = DB::table('profiles')->where('user_id', $withdraw->user_id)->first();
-            $user_acount_types = DB::table('user_account_types')->where('id', $withdraw->user_account_type_id)->first();
-            $account_info = DB::table('account_info')->where('user_id', $withdraw->user_id)->first();
-            if (!isset($account_info) or !isset($user_acount_types) or !isset($profile) or
-                $account_info === NULL or  $user_acount_types === NULL or  $profile === NULL  ){
-                echo'<div class="alert alert-danger">You must have </div>';
-                return ;
-            }
-            ?>
             <tr>
                 <th>{{ $i++ }}</th>
-                <th><?php $profile->first_name .''. $profile->last_name ?></th>
-                <th>{{ $user_acount_types->name }}</th>
+                <th><?php echo $withdraw->user->profile->first_name .''. $withdraw->user->profile->last_name ?></th>
+                <th>{{ @ $withdraw->userAccountType->name }}</th>
                 <th>{{ $withdraw->amount }} </th>
                 <th>{{ $withdraw->transaction_fees }}   </th>
-                <th>{{ $withdraw->status }}  </th>
-                <th>{{ $account_info->account_name  }}   </th>
-                <th>{{  $account_info->acc_type  }}  </th>
-                <th>{{ $account_info->bank }}   </th>
-                <th>{{ $account_info->account_no  }}  </th>
+                <th>{{ $withdraw->status? 'Completed' : 'Pending' }}  </th>
+                <th>{{@$withdraw->user->profile->accountInfo->account_name  }}   </th>
+                <th>{{ @$withdraw->user->profile->account_info->acc_type  }}  </th>
+                <th>{{ @$withdraw->user->profile->account_info->bank }}   </th>
+                <th>{{ @$withdraw->user->profile->account_info->account_no  }}  </th>
                 <th>{{ $withdraw->updated_at }}   </th>
                 <th>{{  $withdraw->created_at }}  </th>
-
 
                 <th> <a class="btn btn-xs btn-info" href="{{ route('admin.withdrawalpaid.show', ['withdraw_id' => $withdraw->id]) }}" data-ajax="true">
                         <i class="fa fa-check-folder"></i>
                         view
-                    </a> </th>
+                    </a>
+                </th>
             </tr>
             @endforeach
             </tbody>

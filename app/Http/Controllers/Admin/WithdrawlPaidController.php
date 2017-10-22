@@ -3,6 +3,7 @@
 
 
 namespace App\Http\Controllers\Admin;
+use App\UserAccountWithdraw;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,9 +18,9 @@ class WithdrawlPaidController extends Controller
      */
     public function index()
     {
-        $withdrawals = DB::table('user_account_withdraw') ->where('status', 'paid')->get();
+	    $withdrawals = UserAccountWithdraw::where('status', 1)->get();
 
-        return view( 'admin.withdrawalpaid.index', [ 'withdrawals' => $withdrawals ] );
+	    return view( 'admin.withdrawalpaid.index', [ 'withdrawals' => $withdrawals ] );
     }
 
     /**
@@ -52,10 +53,10 @@ class WithdrawlPaidController extends Controller
     public function show($id)
 
     {
-        $withdraw_id = request()->segment(3);
+        //$withdraw_id = request()->segment(3);
 
-
-        return view( 'admin.withdrawalpaid.show', [ 'withdraw_id' => $withdraw_id ] );
+	    $withdraw = UserAccountWithdraw::find($id);
+        return view( 'admin.withdrawalpaid.show', [ 'withdraw' => $withdraw ] );
     }
 
     /**

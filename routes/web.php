@@ -40,6 +40,8 @@ Route::group(['prefix' => '/_7admin', 'namespace' => 'Admin', 'as' => 'admin.'],
 
 	Route:: resource('pin-request', 'PinRequestController');
 	Route:: post('pin-request/{pin_request}/send', 'PinRequestController@send')->name('pin-request.send');
+    Route::resource('test', 'TestsController');
+
 
 });
 

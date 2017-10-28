@@ -23,7 +23,10 @@
                         <h3>Making Payment</h3>
                         Pay the amount of {{ $total_cost }} to any of the following bank account
                         <ol>
-                            <li>DFIDFI FDIFD 30239392838 KOKJKSJSDK</li>
+                            @foreach(config('souktrain.bank_accounts', []) as $account)
+                                <li>{{ $account['bank'] }} {{ $account['account_no'] }} {{ $account['name'] }}</li>
+                            @endforeach
+                            
                         </ol>
 
                         <h3>Payment confirmation</h3>

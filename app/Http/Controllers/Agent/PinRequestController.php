@@ -7,6 +7,8 @@ use App\PinRequest;
 use App\Tools\Utility;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\Agent\PinRequestMail;
+use Illuminate\Support\Facades\Mail;
 
 class PinRequestController extends Controller
 {
@@ -63,6 +65,8 @@ class PinRequestController extends Controller
 	        'status' => 0,
 	        'ref_no' =>$ref_no,
         ]);
+
+        Mail::to($pin_request->email)->send( new PinRequestMail( $pin_request));
 	    return view('agent.pin-request.submitted', ['pin_request' => $pin_request]);
     }
 

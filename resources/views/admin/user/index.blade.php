@@ -2,8 +2,7 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3>Income
-        </h3>
+        <h3>Users</h3>
 
     </div>
     <div class="panel-body">
@@ -21,17 +20,24 @@
                     <th>Role</th>
                     <th>Date Created</th>
                     <th>Date Modified</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($users as  $user)
                 <tr>
-                    <th>{{ $user->id }}</th>
-                    <th>{{ $user->username }}</th>
-                    <th>{{ $user->email }}</th>
-                    <th>{{ @$user->role->name }}</th>
-                    <th>{{ $user->created_at }}</th>
-                    <th>{{ $user->updated_at }}</th>
+                    <td>{{ $user->id }}</td>
+                    <td>{{ $user->username }}</td>
+                    <td>{{ $user->email }}</td>
+                    <td>{{ @$user->role->name }}</td>
+                    <td>{{ $user->created_at }}</td>
+                    <td>{{ $user->updated_at }}</td>
+                    <td>
+                        @if($user->profile)
+                            <a data-ajax="true" href="{{ route('admin.profiles.show', ['profile' => $user->profile->id]) }}" class="btn btn-xs btn-info">View Profile</a>
+                        @endif
+                    </td>
+                </tr>
                 </tr>
                 @endforeach
             </tbody>

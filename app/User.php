@@ -465,11 +465,16 @@ class User extends Authenticatable
 		var_dump($total_amount);
 
 		#9. get remaining balance, put into sharing tables
-		$sharing_formular = array(
+		$beneficiaries = config('souktrain.beneficiaries', [
+			'souktrain' => [ 'ratio' => 0.7, ],
+			'netronit' => [ 'ratio' => 0.3, ]
+		]);
+		/*$sharing_formular = array(
 			'souktrain' => 0.7,
-			'netronIT'  => 0.3
-		);
-		foreach ($sharing_formular as $name => $ratio){
+			'netronit'  => 0.3
+		);*/
+		foreach ($beneficiaries as $name => $beneficiary){
+			$ratio = $beneficiary['ratio'];
 			$income = new Income([]);
 			$income = Income::create([
 				'beneficiary'   => $name,

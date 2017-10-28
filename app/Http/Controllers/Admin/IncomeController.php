@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Income;
+use App\Settlement;
+use App\SettlementIncome;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class IncomeController extends Controller
 {
@@ -15,8 +18,19 @@ class IncomeController extends Controller
      */
     public function index()
     {
-    	return view('admin.income.index',['incomes' => Income::paginate(100)]);
+    	return view('admin.income.index');
         //return json_encode(Income::get());
+    }
+
+
+    public function ownerIncome($owner)
+    {
+	    return view('admin.income.owner',[
+	    	'incomes'   => Income::where('beneficiary', $owner)
+		                   ->whereNotIn('id', SettlementIncome::get()->pluck('income_id'))
+		                   ->paginate(100),
+		    'owner'     => $owner
+		 ]);
     }
 
     /**
@@ -83,5 +97,30 @@ class IncomeController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function makeSettlement(Request $request, $owner)
+    {
+    	$data = ($request->input('income_ids'));
+    	//dd($data);
+		$validator= Validator::make($request->all(), [
+			'income_ids' => 'required',
+			'income_ids.*income_id' => 'exists:incomes,id',
+		],[
+			'exists' => ':value does not exists'
+		]);
+
+		if($validator->fails()){
+			return redirect()->route('admin.income.owner', ['owner' => $owner])->withErrors($validator)->withInput();
+		}
+
+		$settlement =  Settlement::create([
+			'name' => $owner.' - '.date('Y-m-d H:i:s'),
+			//'status' => '-1'
+		]);
+		$settlement->settlementIncomes()->createMany($data );
+
+	    session()->flash('message', 'Settlement was created');
+	    return redirect()->route('admin.income.owner', ['owner' => $owner]);
     }
 }

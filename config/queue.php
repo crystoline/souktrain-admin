@@ -39,6 +39,8 @@ return [
             'table' => 'jobs',
             'queue' => 'default',
             'retry_after' => 90,
+            'tries' => '2',
+            'connection' => 'mysql'
         ],
 
         'beanstalkd' => [
@@ -80,6 +82,7 @@ return [
     'failed' => [
         'database' => env('DB_CONNECTION', 'mysql'),
         'table' => 'failed_jobs',
+        'connection' => 'mysql'
     ],
 
 ];

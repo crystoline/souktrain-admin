@@ -6,6 +6,8 @@ use App\Pin;
 use App\PinRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Agent\PinResponseMail;
 
 class PinRequestController extends Controller
 {
@@ -87,12 +89,16 @@ class PinRequestController extends Controller
 	    self::generatePins($pin_request);
 		//send mail here
 	    $pin_request->status = 1;
-	    $pin_request->save();
+        $pin_request->save();
+        Mail::to($pin_request->email)->send( new PinResponseMail( $pin_request));
+        session()->flash('message', 'Pin was sent');
     	return redirect()->route('admin.pin-request.index');
     }
 
     public function send(Request $request, PinRequest $pin_request){
-    	return 'TODO send pin numbers';
+        Mail::to($pin_request->email)->send( new PinResponseMail( $pin_request));
+        session()->flash('message', 'Pin was sent');
+    	return redirect()->route('admin.pin-request.index');
     }
 
     public static function generatePins(PinRequest $pin_request)

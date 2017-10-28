@@ -31,7 +31,10 @@ Route::group(['prefix' => '/_7admin', 'namespace' => 'Admin', 'as' => 'admin.'],
 	Route::resource('plan', 'PlanController');
 	Route::resource('plan-condition', 'PlanConditionController');
 
+	Route::get('/income/owner/{owner}', ['uses' => 'IncomeController@ownerIncome', 'as' => 'income.owner']);
+	Route::post('/income/{owner}/settlement/create', ['uses' => 'IncomeController@makeSettlement', 'as' => 'income.settlement.create']);
 	Route::resource('income', 'IncomeController');
+
 	Route::resource('settlement', 'SettlementController');
 	Route::resource('withdrawal', 'WithdrawalController');
     Route::resource('withdrawalpaid', 'WithdrawlPaidController');

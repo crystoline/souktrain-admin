@@ -2,41 +2,30 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3>Income
-        </h3>
+        <h3>Incomes</h3>
 
     </div>
     <div class="panel-body">
-        <table class="table table-striped table-hover">
-            <thead>
-                <tr>
+        <div class="pills-struct mt-40">
+            <ul role="tablist" class="nav nav-pills" id="myTabs_6">
+                <li role="presentation">
+                    <a aria-expanded="true" role="tab" id="home_tab_6" href="{{ route('admin.income.owner', ['owner' => 'souktrain']) }}"
+                       data-ajax="true" data-dst="#tab-content" data-temp="true" aria-expanded="false">
+                        Souktrain Income
+                    </a>
+                </li>
+                <li role="presentation" class=""><a id="profile_tab_6" role="tab"
+                href="{{ route('admin.income.owner', ['owner' => 'netronit']) }}"
+                data-ajax="true" data-dst="#tab-content" data-temp="true" aria-expanded="false">Netron IT Income</a></li>
+            </ul>
+            <div class="tab-content" id="myTabContent_6">
+                <div id="tab-content" class="tab-pane fade active in" role="tabpanel">
 
-                    <th><input type="checkbox" class="check-all"></th>
-                    <th>ID</th>
-                    <th>Beneficiary</th>
-                    <th>Amount</th>
-                    <th>Description</th>
-                    <th>Date Created</th>
-                    <th>Date Modified</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($incomes as  $income)
-                <tr>
-                    <th><input type="checkbox" name="income_id[]" value="{{ $income->id }}"></th>
-                    <th>{{ $income->id }}</th>
-                    <th>{{ $income->beneficiary }}</th>
-                    <th>{{ number_format($income->amount, 2) }}</th>
-                    <th>{{ $income->description }}</th>
-                    <th>{{ $income->created_at }}</th>
-                    <th>{{ $income->updated_at }}</th>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-        <div data-ajax-links="true">
-            {{ $incomes->links() }}
+                </div>
+
+            </div>
         </div>
+
     </div>
 </div>
 <script>

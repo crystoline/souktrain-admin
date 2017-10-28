@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Settlement;
+use App\SettlementIncome;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,7 +16,9 @@ class SettlementController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.settlement.index', [
+        	'settlements' => Settlement::orderBy('status', 'ASC')->paginate(100)
+        ]);
     }
 
     /**
@@ -67,9 +71,17 @@ class SettlementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Settlement $settlement)
     {
-        //
+        switch ($settlement->status){
+	        case '-1' : $settlement->status = '0'; break;
+	        case '0' : $settlement->status = '1'; break;
+        }
+        if($settlement->isDirty()){
+        	$settlement->save();
+        }
+        session()->flash('message', "Settlement {$settlement->name} Status changed");
+        return redirect()->route('admin.settlement.index');
     }
 
     /**

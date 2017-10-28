@@ -25,7 +25,9 @@
             </thead>
             <tbody>
                  <?php $i = 1;
-                 //var_dump($profiles);?>
+                 var_dump($profiles);
+                ?>
+
                 @foreach($profiles as $profiles=>$profile)
                  <?php $upline = DB::table('profiles')->where('referral_id', $profile->referral_id)->first();
                  //var_dump($upline);

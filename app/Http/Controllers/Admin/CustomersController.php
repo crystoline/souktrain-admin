@@ -3,14 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Profile;
-use App\Http\Controllers\Controller;
 
+use App\Http\Controllers\Api\UserPlan;
+use App\Http\Controllers\Controller;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 class CustomersController extends Controller
 {
     //
     public function index() {
-        $profiles = Profile::orderBy( 'first_name', 'ASC' )->get();
+
+        $profiles = DB::table('profiles')
+            ->join('users', 'users.id', '=', 'profiles.user_id')
+              ->select('profiles.*', 'users.email')
+            ->orderBy( 'first_name', 'ASC' )
+           ->paginate(3);
+       // $profiles = Profile::orderBy( 'first_name', 'ASC' )->get();
         return view( 'admin.profile.index', [ 'profiles' => $profiles] );
     }
 
@@ -44,8 +53,13 @@ class CustomersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id) {
-    $profile_id = request()->segment(3);
+       // $user_plan = new UserPlan();
+       // $user_plan =   $user_plan->index(request()->segment(3));
+        ;
 
+        $profile_id = request()->segment(3);
+
+         // dd($user_plan);
        return view('admin.profile.show', ['profile_id' => $profile_id]);
     }
 

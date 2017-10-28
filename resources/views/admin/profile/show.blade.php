@@ -3,34 +3,41 @@
 
 
 
-    <div class="col-md-4">
-
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3>View Profile
-
-                </h3>
-                <?php
-                // $withdraw = DB::table('user_account_withdraw') ->where('status', 'pending')->get();
-                $profile = DB::table('profiles')->where('id',$profile_id)->first();
-
-               // $profile_update = DB::table('profile_update')->where('user_id', $profile->user_id)->first();
-                $upline = DB::table('profiles')->where('referral_id', $profile->referral_id)->first();
-                $profile_update = DB::table('profile_update')->where('user_id', $profile->user_id)->first();
-                $bank_account = DB::table('account_info')->where('profile_id', $profile->id)->first();
-                ?>
-
-            </div>
 
 
-            <div class="panel-body">
+     <div class="col-md-4">
+
+     <div class="panel panel-default">
+         <div class="panel-heading">
+             <h3>View Profile
+
+             </h3>
+             <?php
+             // $withdraw = DB::table('user_account_withdraw') ->where('status', 'pending')->get();
+             $profile = DB::table('profiles')
+                 ->join('users', 'users.id', '=', 'profiles.user_id')
+                 ->select('profiles.*', 'users.email')
+                 ->where('profiles.id',$profile_id)->first();
 
 
-                <table class="table  table-hover" >
-                    <tr> <th>Name:</th><td> {{ $profile->first_name }} {{ $profile->last_name }}</td></tr>
+             $upline = DB::table('profiles')->where('referral_id', $profile->referral_id)->first();
+             $profile_update = DB::table('profile_update')->where('user_id', $profile->user_id)->first();
+             $bank_account = DB::table('account_info')->where('profile_id', $profile->id)->first();
+             ?>
+
+         </div>
+
+
+         <div class="panel-body">
+
+
+             <table class="table  table-hover" >
+                 <tr> <th>Name:</th><td> {{ $profile->first_name }} {{ $profile->last_name }}</td></tr>
                     <tr><th> Gender:</th><td> {{ $profile->gender}}</td></tr>
                     <tr><th>My ID</th><td> {{ $profile->my_id}}</td></tr>
                     <tr><th> My phone No:</th><td> {{ $profile->phone_no }}</td></tr>
+                    <tr><th> Email:</th><td> {{ $profile->email }}</td></tr>
+
                     <tr><th> Upline:</th><td> {{ $upline->first_name }} {{ $upline->last_name }}</td></tr>
                     <tr><th> Date Created:</th><td>{{ $profile->created_at }}</td></tr>
                     <tr><th>Date Editted:</th><td> {{ $profile->updated_at }}</td></tr>
@@ -81,7 +88,7 @@
 
 
                 @else
-                    <div class="text text-danger"> Other information is not available!!</div>
+                    <div class="text text-danger"> Other information is not available!! Kindly update your profile</div>
                 @endif
             </div>
         </div>
@@ -99,7 +106,7 @@
 
             <div class="panel-body">
                 @if( empty($bank_account))
-                    <div class="text text-danger"> Profile Update Not Available!!</div>
+                    <div class="text text-danger">Bank Account Not Available!! Kindly update your bank info</div>
                 @else
 
 

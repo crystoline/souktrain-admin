@@ -20,7 +20,7 @@ class UserController extends Controller
 
     	//dd($request);
         $keyword = $request->get('search');
-        $perPage = 5;
+        $perPage = 100;
 
         if (!empty($keyword)) {
             $users = User::where('email', 'LIKE', "%$keyword%")
@@ -31,6 +31,7 @@ class UserController extends Controller
         }
 
         //$users->load('profile');
+	    //dd($users);
         return view('admin.user.index', compact('users'));
     }
 
@@ -77,7 +78,7 @@ class UserController extends Controller
 		$role = Role::find($request->input('role_id'));
 		$role->users()->create($userData)->profile()->create($profileDate);
 
-		Session::flash('flash_message', 'User was registered');
+		Session::flash('message', 'User was registered');
 
 		return redirect()->route('admin.user');
 	}
@@ -96,9 +97,9 @@ class UserController extends Controller
 			//'avatar' => 'required|max:100|min:2',
 			'username' => 'required|unique:users,username,'.$user->id,
 
-			'first_name' => 'required|max:100|min:2',
+			/*'first_name' => 'required|max:100|min:2',
 			'last_name' => 'required|max:100|min:2',
-			'gender' => 'required|max:100|min:2',
+			'gender' => 'required|max:100|min:2',*/
 		]);
 		$profileDate =  $request->only(['gender', 'first_name', 'last_name']);
 		$userData =  $request->only(['username', 'email', 'role_id']);
@@ -109,11 +110,13 @@ class UserController extends Controller
 			$userData['$userData'] = $fileSaved['name'];
 		}
 
-		$user->profile()->update($profileDate);
+		if($profileDate){
+			$user->profile()->update($profileDate);
+		}
 		$user->update($userData);
 
-		Session::flash('flash_message', 'User record was updated');
+		Session::flash('message', 'User account was updated');
 
-		return redirect()->route('admin.user');
+		return redirect()->route('admin.user.edit', ['user' => $user->id]);
 	}
 }

@@ -7,7 +7,7 @@
             <div class="panel-body">
                 <form action="{{ route('admin.plan.store') }}" method="post" data-ajax="true">
                     {{ csrf_field() }}
-                    <div class="form-group{{ $errors->has('name')? 'has-error': '' }}">
+                    <div class="form-group{{ $errors->has('name')? ' has-error': '' }}">
                         <label>Plan Name</label>
                         <input name="name" class="form-control" required value="{{ old('name') }}">
                         @if ($errors->has('name'))
@@ -17,7 +17,7 @@
                         @endif
                     </div>
 
-                    <div class="form-group{{ $errors->has('price')? 'has-error': '' }}">
+                    <div class="form-group{{ $errors->has('price')? ' has-error': '' }}">
                         <label>Price</label>
                         <input name="price" class="form-control" required type="number" min="1000" step="500" value="{{ old('price') }}">
                         @if ($errors->has('price'))

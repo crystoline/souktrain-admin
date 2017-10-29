@@ -346,7 +346,7 @@
             <li>
                 <a href="{{ route('admin.user.index') }}" data-ajax="true">
                     <div class="pull-left">
-                        <i class="zmdi zmdi-money-box mr-20"></i>
+                        <i class="zmdi zmdi-account mr-20"></i>
                         <span class="right-nav-text">Users Accounts</span>
                     </div>
                     <div class="clearfix"></div>
@@ -355,7 +355,7 @@
             <li>
                 <a href="{{ route('admin.plan.index') }}" data-ajax="true">
                     <div class="pull-left">
-                        <i class="zmdi zmdi-money-box mr-20"></i>
+                        <i class="zmdi zmdi-cocktail mr-20"></i>
                         <span class="right-nav-text">Plans</span>
                     </div>
                     <div class="clearfix"></div>
@@ -364,7 +364,7 @@
             <li>
                 <a href="{{ route('admin.plan-condition.index') }}" data-ajax="true">
                     <div class="pull-left">
-                        <i class="zmdi zmdi-money-box mr-20"></i>
+                        <i class="zmdi zmdi-puzzle-piece mr-20"></i>
                         <span class="right-nav-text">Plan Conditions</span>
                     </div>
                     <div class="clearfix"></div>
@@ -374,7 +374,7 @@
             <li>
                 <a href="{{ route('admin.withdrawal.index') }}" data-ajax="true">
                     <div class="pull-left">
-                        <i class="zmdi zmdi-money-box mr-20"></i>
+                        <i class="zmdi zmdi-alert-triangle mr-20"></i>
                         <span class="right-nav-text">Withdrawal | Request</span>
                     </div>
                     <div class="clearfix"></div>
@@ -383,7 +383,7 @@
             <li>
                 <a href="{{ route('admin.withdrawalpaid.index') }}" data-ajax="true">
                     <div class="pull-left">
-                        <i class="zmdi zmdi-money-box mr-20"></i>
+                        <i class="zmdi zmdi-arrow-right mr-20"></i>
                         <span class="right-nav-text">Withdrawal | Paid</span>
                     </div>
                     <div class="clearfix"></div>
@@ -397,7 +397,7 @@
             <li>
                 <a href="{{ route('admin.income.index') }}" data-ajax="true">
                     <div class="pull-left">
-                        <i class="zmdi zmdi-money-box mr-20"></i>
+                        <i class="zmdi zmdi-money mr-20"></i>
                         <span class="right-nav-text">Income</span>
                     </div>
                     <div class="clearfix"></div>
@@ -417,8 +417,17 @@
             <li>
                 <a href="{{ route('admin.pin-request.index') }}" data-ajax="true">
                     <div class="pull-left">
-                        <i class="zmdi zmdi-money-box mr-20"></i>
+                        <i class="zmdi zmdi-card mr-20"></i>
                         <span class="right-nav-text">Pin Requests</span>
+                    </div>
+                    <div class="clearfix"></div>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('admin.role.index') }}" data-ajax="true">
+                    <div class="pull-left">
+                        <i class="zmdi zmdi-lock mr-20"></i>
+                        <span class="right-nav-text">Roles Permission</span>
                     </div>
                     <div class="clearfix"></div>
                 </a>

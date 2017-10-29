@@ -81,7 +81,7 @@ $(function(){
         }
         if(!obj.attr('data-temp') && method.toLowerCase() == 'get'){
             var opt = options
-            opt.data = $(this).serializeArray();
+            opt.data = $(this).serialize();
             history.pushState(opt, title,$('meta[name="base-url"]').attr('content')+"#"+get_url(url));
         }
         do_ajax(options)

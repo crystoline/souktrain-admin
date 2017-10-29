@@ -26,6 +26,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['prefix' => '/_7admin', 'namespace' => 'Admin', 'as' => 'admin.'], function (){
 	Route::get('/', [ 'uses' => "DashboardController@index", 'as' => 'dashboard']);
 
+	Route::post('role/permission/{role}', ['uses' => 'RoleController@updatePermissions', 'as' => 'role.permission.update']);
+	Route::resource('role', 'RoleController');
+
 	Route::resource('user', 'UserController');
 
 	Route::resource('plan', 'PlanController');

@@ -6,9 +6,12 @@
 
     </div>
     <div class="panel-body">
-        <form action="{{ route('admin.user.index') }}" class="pull-right" data-ajax="true">
+{{--
+        Displaying {{ number_format(($users->currentPage-1)*5+1, 0) }} {{ number_format(($users->total <= $users->perPage)?$users->total: $users->perPage*$users->currentPage ,2) }}of {{ number_format($users->total,0) }}
+--}}
+        <form action="{{ route('admin.user.index') }}" class="pull-right" data-ajax="true" method="get">
             {{ csrf_field() }}
-            <label><input class="form-control" name="search" placeholder="" required value="{{ old('search') }}"></label>
+            <label><input class="form-control" name="search" placeholder="Enter search keyword" value="{{ request()->input('search') }}"></label>
             <button class="btn btn-info" type="submit"><i class="fa fa-search"></i> Find</button>
         </form>
         <table class="table table-striped table-hover">
@@ -33,6 +36,7 @@
                     <td>{{ $user->created_at }}</td>
                     <td>{{ $user->updated_at }}</td>
                     <td>
+                        <a data-ajax="true" class="btn btn-xs btn-primary" href="{{ route('admin.user.edit', ['user' => $user->id]) }}">Edit</a>
                         @if($user->profile)
                             <a data-ajax="true" href="{{ route('admin.profiles.show', ['profile' => $user->profile->id]) }}" class="btn btn-xs btn-info">View Profile</a>
                         @endif

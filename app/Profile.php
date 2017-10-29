@@ -31,4 +31,8 @@ class Profile extends Model
 	public function accountInfo(){
 		return $this->hasOne(AccountInfo::class);
 	}
+    public function profileUpdate()
+    {
+        return $this->hasOne(ProfileUpdate::class,'profile_id','id');
+    }
 }

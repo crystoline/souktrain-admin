@@ -33,7 +33,7 @@ class PinResponseMail extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->from(env('MAIL_USERNAME'), env('APP_NAME'))
+        return $this->from(config('mail.from.address'), config('mail.from.name'))
 	        ->subject('Purchase of Pin Codes Complete, Ref: #'.$this->pin_request->ref_no )
 	        ->markdown('mail/agent/pin/response');
     }

@@ -151,8 +151,10 @@ function do_ajax(options){
         },
         error: function(xhr, ajaxOptions, thrownError){
             // alert(ajaxOptions)
+            var base_url = $('meta[name="base-url"]').attr('content');
             switch(xhr.status){
-                case 401: window.location.reload(); break;
+
+                case 401:  window.location =  base_url ; break;
                 default:
                     var msg = $('<div class="alert alert-warning alert-dismissible" role="alert" style="margin-top: 50px">'+
                         '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+

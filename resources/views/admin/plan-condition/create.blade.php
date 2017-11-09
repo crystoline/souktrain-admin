@@ -71,6 +71,17 @@
                                     <option value="credit_wallet">Credit Wallet</option>
                                     <option value="credit_account">Credit Account</option>
                                     <option value="upgrade">Upgrade</option>
+
+                                    <option value="matrix3_2_ps_level_2">Do 3by2 PS Downline</option>
+
+                                    <option value="matrix6_1_pt_level_1">Do 6by1 PT Level 1 Downline</option>
+                                    <option value="matrix6_2_pt_level_2">Do 6by2  PTLevel 2 Downline</option>
+
+                                    <option value="matrix6_1_cpt_level_1">Do 6by1 CPT Level 1 Downline</option>
+                                    <option value="matrix6_2_cpt_level_2">Do 6by2 CPT Level 2 Downline</option>
+                                    <option value="matrix6_3_cpt_level_3">Do 6by1 CPT Level 3 Downline</option>
+                                    <option value="matrix6_4_cpt_level_4">Do 6by2 CPT Level 4 Downline</option>
+
                                 </select>
                                 @if ($errors->has('action'))
                                     <span class="help-block">

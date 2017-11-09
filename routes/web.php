@@ -15,9 +15,25 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+<<<<<<< HEAD
 Auth::routes();
 
 Route::get('/testtest', "TestController@index");
+=======
+//Auth::routes();
+// Password Reset Routes...
+Route::post('password/email', [ 'as' => 'password.email', 'uses' => 'Auth\ForgotPasswordController@sendResetLinkEmail' ]);
+Route::get('password/reset', [ 'as' => 'password.request', 'uses' => 'Auth\ForgotPasswordController@showLinkRequestForm' ]);
+Route::post('password/reset', [ 'as' => '', 'uses' => 'Auth\ResetPasswordController@reset' ]);
+Route::get('password/reset/{token}', [ 'as' => 'password.reset', 'uses' => 'Auth\ResetPasswordController@showResetForm' ]);
+
+// Registration Routes...
+Route::get('register', [ 'as' => 'register', 'uses' => 'Auth\RegisterController@showRegistrationForm' ]);
+Route::post('register', [ 'as' => '', 'uses' => 'Auth\RegisterController@register' ]);
+Route::get('login', [ 'as' => 'login', 'uses' => 'Auth\LoginController@showLoginForm' ]);
+Route::post('login', [ 'as' => 'login.post', 'uses' => 'Auth\LoginController@login' ]);
+Route::any('logout', [ 'as' => 'logout', 'uses' => 'Auth\LoginController@logout' ]);
+>>>>>>> 52a80c6a67f8cf8dc933e9f6e8e066941d79123d
 
 Route::get('/test2', "TestController@user");
 Route::get('/home', 'HomeController@index')->name('home');
@@ -25,28 +41,35 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::group(['prefix' => '/_7admin', 'namespace' => 'Admin', 'as' => 'admin.'], function (){
-	Route::get('/', [ 'uses' => "DashboardController@index", 'as' => 'dashboard']);
 
-	Route::post('role/permission/{role}', ['uses' => 'RoleController@updatePermissions', 'as' => 'role.permission.update']);
-	Route::resource('role', 'RoleController');
+	Route::get('login', [ 'as' => 'login', 'uses' => 'Auth\LoginController@showLoginForm' ]);
+	Route::post('login', [ 'as' => 'login.post', 'uses' => 'Auth\LoginController@login' ]);
+	Route::any('logout', [ 'as' => 'logout', 'uses' => 'Auth\LoginController@logout' ]);
 
-	Route::resource('user', 'UserController');
+	Route::group(['middleware'=> [\App\Http\Middleware\AdminOnlyMiddleware::class]], function (){
+		Route::get('/', [ 'uses' => "DashboardController@index", 'as' => 'dashboard']);
 
-	Route::resource('plan', 'PlanController');
-	Route::resource('plan-condition', 'PlanConditionController');
+		Route::post('role/permission/{role}', ['uses' => 'RoleController@updatePermissions', 'as' => 'role.permission.update']);
+		Route::resource('role', 'RoleController');
 
-	Route::get('/income/owner/{owner}', ['uses' => 'IncomeController@ownerIncome', 'as' => 'income.owner']);
-	Route::post('/income/{owner}/settlement/create', ['uses' => 'IncomeController@makeSettlement', 'as' => 'income.settlement.create']);
-	Route::resource('income', 'IncomeController');
+		Route::resource('user', 'UserController');
 
-	Route::resource('settlement', 'SettlementController');
-	Route::resource('withdrawal', 'WithdrawalController');
-    Route::resource('withdrawalpaid', 'WithdrawlPaidController');
-    Route::resource('profiles', 'CustomersController');
-    Route::resource('service_center', 'ServiceCenterController');
+		Route::resource('plan', 'PlanController');
+		Route::resource('plan-condition', 'PlanConditionController');
 
-	Route:: resource('pin-request', 'PinRequestController');
-	Route:: post('pin-request/{pin_request}/send', 'PinRequestController@send')->name('pin-request.send');
+		Route::get('/income/owner/{owner}', ['uses' => 'IncomeController@ownerIncome', 'as' => 'income.owner']);
+		Route::post('/income/{owner}/settlement/create', ['uses' => 'IncomeController@makeSettlement', 'as' => 'income.settlement.create']);
+		Route::resource('income', 'IncomeController');
+
+		Route::resource('settlement', 'SettlementController');
+		Route::resource('withdrawal', 'WithdrawalController');
+		Route::resource('withdrawalpaid', 'WithdrawlPaidController');
+		Route::resource('profiles', 'CustomersController');
+		Route::resource('service_center', 'ServiceCenterController');
+
+		Route:: resource('pin-request', 'PinRequestController');
+		Route:: post('pin-request/{pin_request}/send', 'PinRequestController@send')->name('pin-request.send');
+	});
 
 });
 

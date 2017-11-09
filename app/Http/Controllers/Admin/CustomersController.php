@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Profile;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Api\UserPlan;
@@ -14,8 +15,7 @@ class CustomersController extends Controller
     //
     public function index() {
 
-        $profiles = DB::table('profiles')
-            ->join('users', 'users.id', '=', 'profiles.user_id')
+        $profiles = Profile::join('users', 'users.id', '=', 'profiles.user_id')
               ->select('profiles.*', 'users.email')
             ->orderBy( 'first_name', 'ASC' )
            ->paginate(3);

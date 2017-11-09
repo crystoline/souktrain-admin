@@ -38,6 +38,24 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
+
+	/**
+	 * @param string $permission
+	 *
+	 * @return bool
+	 */
+    public function hasPermission($permission)
+    {
+    	$role = $this->role;
+    	if($role){
+		    $permissions = $role->permissions->pluck('name')->toArray();
+		    if(in_array($permission, $permissions)){
+		    	return true;
+		    }
+	    }
+	    return false;
+    }
+
     public function initialize(){
         if(!$this->profile){
             $this->profile()->create([

@@ -25,10 +25,10 @@
                      <tr><th>Country</th><td> {{ $service_center->country }}</td></tr>
                      <tr><th>Telephone</th><td> {{ $service_center->telephone }} </td></tr>
                      <tr><th>Service Center Code</th><td>{{ $service_center->code }}</td></tr>
-                     <tr><th>Status</th><td><?php if($service_center->status === '1'){
-                                 echo 'Unapproved';
-                             }else{
+                     <tr><th>Status</th><td><?php if($service_center->status === '0'){
                                  echo 'Approved';
+                             }else{
+                                 echo 'Unapproved';
                              }
                              ?> </td></tr>
                      <tr><th> Service Center Owner </th><td>{{  $profile->first_name }} {{  $profile->last_name }}</td></tr>
@@ -38,9 +38,9 @@
 
                 </table>
                     <button class="btn btn-default btn-lg"><i class="fa fa-money"></i> <?php if($service_center->status === '0'){
-                            echo 'Unapproved';
+                            echo 'Approve';
                         }else{
-                            echo 'Approved';
+                            echo 'UnApprove';
                         }
                         ?></button>
                 </form>

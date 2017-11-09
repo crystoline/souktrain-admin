@@ -40,10 +40,10 @@
                 <th>{{ $service_center->country }} </th>
                 <th>{{ $service_center->telephone }}   </th>
                 <th>{{ $service_center->code }}  </th>
-                <th><?php if($service_center->status === '1'){
-                    echo 'Unapproved';
+                <th><?php if($service_center->status === '0'){
+                    echo 'Approve';
                     }else{
-                        echo 'Approved';
+                        echo 'Unapprove';
                     }
                      ?>  </th>
                 <th>{{  $profile->first_name }} {{  $profile->last_name }} </th>
@@ -52,7 +52,7 @@
 
 
                 <th> <a class="btn btn-xs btn-info" href="{{ route('admin.service_center.edit', ['service_center' => $service_center->id]) }}" data-ajax="true">
-                        <?php if($service_center->status === '1'){
+                        <?php if($service_center->status === '0'){
                             echo 'Approve';
                         }else{
                             echo 'Unapprove';

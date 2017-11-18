@@ -15,11 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-<<<<<<< HEAD
-Auth::routes();
+
+//Auth::routes();
 
 Route::get('/testtest', "TestController@index");
-=======
+
 //Auth::routes();
 // Password Reset Routes...
 Route::post('password/email', [ 'as' => 'password.email', 'uses' => 'Auth\ForgotPasswordController@sendResetLinkEmail' ]);
@@ -33,7 +33,7 @@ Route::post('register', [ 'as' => '', 'uses' => 'Auth\RegisterController@registe
 Route::get('login', [ 'as' => 'login', 'uses' => 'Auth\LoginController@showLoginForm' ]);
 Route::post('login', [ 'as' => 'login.post', 'uses' => 'Auth\LoginController@login' ]);
 Route::any('logout', [ 'as' => 'logout', 'uses' => 'Auth\LoginController@logout' ]);
->>>>>>> 52a80c6a67f8cf8dc933e9f6e8e066941d79123d
+
 
 Route::get('/test2', "TestController@user");
 Route::get('/home', 'HomeController@index')->name('home');

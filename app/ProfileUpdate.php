@@ -10,6 +10,6 @@ class ProfileUpdate extends Model
     protected $table = 'profile_update';
     public function profile()
     {
-        return $this->belongsTo('App\profileUpdate','profile_id');
+        return $this->belongsTo(Profile::class);
     }
 }

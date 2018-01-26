@@ -40,6 +40,7 @@
                 <th>{{ $service_center->country }} </th>
                 <th>{{ $service_center->telephone }}   </th>
                 <th>{{ $service_center->code }}  </th>
+
                 <th>
                     @if($service_center->status == '1')
                        <i class="label label-success">Approved</i>
@@ -47,6 +48,7 @@
                         <i class="label label-danger">Unapproved</i>
                     @endif
                 </th>
+
                 <th>{{  $profile->first_name }} {{  $profile->last_name }} </th>
                 <th>{{ $service_center->updated_at }}   </th>
                 <th>{{  $service_center->created_at }}  </th>
@@ -59,6 +61,7 @@
                         <a class="btn btn-xs btn-success" href="{{ route('admin.service_center.edit', ['service_center' => $service_center->id]) }}" data-ajax="true">Approve</a>
                     @endif
                 </th>
+
             </tr>
             @endforeach
             </tbody>

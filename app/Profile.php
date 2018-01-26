@@ -41,7 +41,7 @@ class Profile extends Model
 	}
     public function profileUpdate()
     {
-        return $this->hasOne(ProfileUpdate::class,'profile_id','id');
+        return $this->hasOne(ProfileUpdate::class);
     }
 
     public function serviceCenter(){

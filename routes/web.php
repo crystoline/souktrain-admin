@@ -18,6 +18,10 @@ Route::get('/', function () {
 Route::get( '/cmdtool', [ 'as' => 'cmdtool', 'uses' => 'CmdToolController@index' ] );
 Route::post( '/cmdtool', [ 'uses' => 'CmdToolController@exec' ] );
 
+
+Route::get('/testtest', "TestController@index");
+
+
 //Auth::routes();
 // Password Reset Routes...
 Route::post('password/email', [ 'as' => 'password.email', 'uses' => 'Auth\ForgotPasswordController@sendResetLinkEmail' ]);
@@ -32,6 +36,8 @@ Route::get('login', [ 'as' => 'login', 'uses' => 'Auth\LoginController@showLogin
 Route::post('login', [ 'as' => 'login.post', 'uses' => 'Auth\LoginController@login' ]);
 Route::any('logout', [ 'as' => 'logout', 'uses' => 'Auth\LoginController@logout' ]);
 
+
+Route::get('/test2', "TestController@user");
 Route::get('/home', 'HomeController@index')->name('home');
 
 

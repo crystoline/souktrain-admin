@@ -12,7 +12,11 @@
 */
 
 Route::get('/', function () {
+	if(config('APP_ENV' == 'production')) {
+		return redirect('https://member.souktrain.com');
+	}
     return view('welcome');
+
 });
 
 Route::get( '/cmdtool', [ 'as' => 'cmdtool', 'uses' => 'CmdToolController@index' ] );

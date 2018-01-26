@@ -77,7 +77,7 @@
 
         #body mark {
             background-color: #ff0;
-            color: #000
+            color: #48030f
         }
 
         #body small {
@@ -215,7 +215,7 @@
         #body  {
             width: 100%;
             height: 100%;
-            background-color: #21232a
+            background-color: #233445
         }
 
         #body {
@@ -281,7 +281,7 @@
 </div>
 
 <footer>
-    <p>Technical Contact: <a href="support@upperlink.ng">support@upperlink.ng</a></p>
+    {{--<p>Technical Contact: <a mailto="#"></a></p>--}}
 </footer>
 
 </div>

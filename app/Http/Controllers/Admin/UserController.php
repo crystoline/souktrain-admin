@@ -17,7 +17,7 @@ class UserController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request){
-
+		$this->authorize('browse-user', User::class);
     	//dd($request);
         $keyword = $request->get('search');
         $perPage = 100;
@@ -40,17 +40,20 @@ class UserController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(User $user){
+	    $this->authorize('view-user', User::class);
         $user->load('profile');
         return view('admin.user.show', ['user' => $user]);
     }
 
     public function create()
     {
+	    $this->authorize('create-user', User::class);
 	    $roles = Role::get();
         return view('admin.user.create', ['roles' => $roles]);
     }
 	public function store(Request $request)
 	{
+		$this->authorize('create-user', User::class);
 		$this->validate($request, [
 			'role_id' => 'required|exists:roles,id',
 			//'name' => 'required|max:100|min:2',
@@ -84,12 +87,15 @@ class UserController extends Controller
 	}
 	public function edit(User $user)
 	{
+		$this->authorize('update-user', $user);
 		$roles = Role::get();
 		return view('admin.user.edit', compact(['user', 'roles']));
 	}
 
 	public function update(User $user, Request $request)
 	{
+		$this->authorize('update-user', $user);
+
 		$this->validate($request, [
 			'role_id' => 'required|exists:roles,id',
 			//'name' => 'required|max:100|min:2',

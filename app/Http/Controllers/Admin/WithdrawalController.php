@@ -16,10 +16,19 @@ class WithdrawalController extends Controller
      */
     public function index()
     {
+    	$this->authorize('browse-user-account_withdraw', Withdrawal::class);
+
         //$withdrawals = DB::table('user_account_withdraw') ->where('status', 'pending')->get();
 	    $withdrawals = UserAccountWithdraw::where('status', 0)->get();
 
         return view( 'admin.withdraw.index', [ 'withdrawals' => $withdrawals ] );
+    }
+    public function indexPaid(){
+
+	    $withdrawals = UserAccountWithdraw::where('status', 1)->get();
+	    //if(!$withdrawals) return redirect()->route('admin.withdrawal.index');
+	    $this->authorize('browse-user-account_withdraw', Withdrawal::class);
+	    return view( 'admin.withdrawalpaid.index', [ 'withdrawals' => $withdrawals ] );
     }
 
     /**
@@ -49,9 +58,11 @@ class WithdrawalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(UserAccountWithdraw $withdraw)
     {
-
+	    //$withdraw = UserAccountWithdraw::find($id);
+	    $this->authorize('view-user-account_withdraw', $withdraw);
+	    return view( 'admin.withdrawalpaid.show', [ 'withdraw' => $withdraw ] );
 
     }
 
@@ -64,11 +75,13 @@ class WithdrawalController extends Controller
 	 * @return \Illuminate\Http\Response
 	 * @internal param int $id
 	 */
-    public function edit(Request $request, $id)
+    public function edit(Request $request, UserAccountWithdraw $account_withdraw)
     {
     	//dd($request);
-	    $withdraw = UserAccountWithdraw::find($id);
-        return view( 'admin.withdraw.edit', ['withdraw'=> $withdraw] );
+	    //$account_withdraw = UserAccountWithdraw::find($id);
+	    $this->authorize('update-user-account_withdraw', $account_withdraw);
+
+	    return view( 'admin.withdraw.edit', ['withdraw'=> $account_withdraw] );
     }
 
     /**
@@ -78,11 +91,12 @@ class WithdrawalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, UserAccountWithdraw $withdraw)
     {
+    	//$withdraw = UserAccountWithdraw::find($id);
+	    $this->authorize('update-user-account_withdraw', $withdraw);
 
-	    $withdraw = UserAccountWithdraw::find($id);
-	   // dd($withdraw->user);
+	    // dd($withdraw->user);
 
 	    $validator = Validator::make(
 	        $request->only( [ 'details' ] ),

@@ -41,24 +41,21 @@ class UserPlan extends Controller
         return Utility::json_success(null);
     }
 
-    public function downLine(User $user, $id){
-        $plan = Plan::find($id);
-        //$user->getDownLines($plan);
-        return Utility::json_success($user->getDownLines($plan));
-        if($tree = $user->tree){
-            foreach ($tree as $branch) {
-                if ($branch->plan_id == $id) {
+	public function downLine(User $user, $id) {
+		$plan = Plan::find( $id );
+		//$user->getDownLines($plan);
+		$children_name = request()->input( 'children' ) ?: 'down_line';
 
-                };
-            }
-        }
+		return Utility::json_success( $user->getDownLines( $plan, $children_name ) );
+	}
+	public function downLine2(User $user, $id) {
+		$plan = Plan::find( $id );
 
-        return Utility::json_success($user->tree);
+		$user_array = $user->toArray();
 
-
-        return Utility::json_success(null);
-    }
-
+		$user_array['children'] = $user->getDownLines( $plan, 'children' );
+		return Utility::json($user_array);
+	}
 
     /**
      * @param  \Illuminate\Http\Request  $request

@@ -14,11 +14,11 @@ class CustomersController extends Controller
 {
     //
     public function index() {
-
+		$this->authorize('browse-user');
         $profiles = Profile::join('users', 'users.id', '=', 'profiles.user_id')
               ->select('profiles.*', 'users.email')
             ->orderBy( 'first_name', 'ASC' )
-           ->paginate(3);
+           ->paginate(100);
        // $profiles = Profile::orderBy( 'first_name', 'ASC' )->get();
         return view( 'admin.profile.index', [ 'profiles' => $profiles] );
     }

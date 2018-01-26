@@ -41,7 +41,7 @@
                             {{ $plans_condition->min }} to {{ $plans_condition->limits? : 'Unlimited' }}
                         @endif
                     </td>
-                    <td>{{ $plans_condition->action }}</td>
+                    <td>{{ $plans_condition->action }} {{ $plans_condition->sub_action? "->".$plans_condition->sub_action: "" }}</td>
                     <th>{{ number_format($plans_condition->amount, 2) }}</th>
                     <td>{{ @$plans_condition->userAccountType->name? : (($plans_condition->action == 'credit_wallet')? 'Wallet' : '-')}}</td>
                     <th>{{ $plans_condition->created_at }}</th>

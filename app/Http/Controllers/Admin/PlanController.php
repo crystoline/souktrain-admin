@@ -14,6 +14,7 @@ class PlanController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
+		$this->authorize('browse-plan', Plan::class);
 		$plan = Plan::orderBy( 'order', 'ASC' )->get();
 		///session()->flush();
 		return view( 'admin.plan.index', [ 'plans' => $plan ] );
@@ -25,6 +26,8 @@ class PlanController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create() {
+		$this->authorize('create-plan', Plan::class);
+
 		return view( 'admin.plan.create' );
 	}
 
@@ -36,6 +39,8 @@ class PlanController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store( Request $request ) {
+		$this->authorize('create-plan', Plan::class);
+
 		$validator = Validator::make(
 			$request->only( [ 'name', 'price', 'order' ] ),
 			[
@@ -67,6 +72,8 @@ class PlanController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function show( Plan $plan ) {
+		$this->authorize('view-plan', $plan);
+
 		return view('admin.plan.show', ['plan' => $plan]);
 	}
 
@@ -78,6 +85,8 @@ class PlanController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit( Plan $plan ) {
+		$this->authorize('update-plan', $plan);
+
 		return view('admin.plan.edit', ['plan' => $plan]);
 	}
 
@@ -90,6 +99,9 @@ class PlanController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update( Request $request,  Plan $plan ) {
+
+		$this->authorize('update-plan', $plan);
+
 		$validator = Validator::make(
 		$request->only( [ 'name', 'price', 'order' ] ),
 			[

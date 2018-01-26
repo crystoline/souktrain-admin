@@ -14,6 +14,9 @@ class UserPlan extends Model
     protected $hidden = [
         'plan_id'
     ];
+    protected $with = [
+        'plan'
+    ];
 
     public function plan(){
         return $this->belongsTo(Plan::class);

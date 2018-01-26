@@ -18,7 +18,7 @@ class PinRequestController extends Controller
      */
     public function index( Request $request)
     {
-
+		$this->authorize('browse-pin_request', PinRequest::class);
 	    //dd($request);
 	    $keyword = $request->get('search');
 	    $perPage = 100;
@@ -86,6 +86,7 @@ class PinRequestController extends Controller
      */
     public function update(Request $request, PinRequest $pin_request)
     {
+	    $this->authorize('update-pin_request', $pin_request);
 	    self::generatePins($pin_request);
 		//send mail here
 	    $pin_request->status = 1;
@@ -96,6 +97,7 @@ class PinRequestController extends Controller
     }
 
     public function send(Request $request, PinRequest $pin_request){
+	    $this->authorize('send-pin', $pin_request);
         Mail::to($pin_request->email)->send( new PinResponseMail( $pin_request));
         session()->flash('message', 'Pin was sent');
     	return redirect()->route('admin.pin-request.index');

@@ -9,7 +9,7 @@
 
     </div>
     <div class="panel-body">
-        <table class="table table-striped table-hover" id="datatable-plan-cond">
+        <table class="table table-striped table-hover table-responsive" id="datatable-plan-cond">
             <thead>
             <tr>
                 <th>#</th>
@@ -40,25 +40,25 @@
                 <th>{{ $service_center->country }} </th>
                 <th>{{ $service_center->telephone }}   </th>
                 <th>{{ $service_center->code }}  </th>
-                <th><?php if($service_center->status === '1'){
-                    echo 'Unapproved';
-                    }else{
-                        echo 'Approved';
-                    }
-                     ?>  </th>
+                <th>
+                    @if($service_center->status == '1')
+                       <i class="label label-success">Approved</i>
+                    @else
+                        <i class="label label-danger">Unapproved</i>
+                    @endif
+                </th>
                 <th>{{  $profile->first_name }} {{  $profile->last_name }} </th>
                 <th>{{ $service_center->updated_at }}   </th>
                 <th>{{  $service_center->created_at }}  </th>
 
 
-                <th> <a class="btn btn-xs btn-info" href="{{ route('admin.service_center.edit', ['service_center' => $service_center->id]) }}" data-ajax="true">
-                        <?php if($service_center->status === '1'){
-                            echo 'Approve';
-                        }else{
-                            echo 'Unapprove';
-                        }
-                        ?>
-                    </a> </th>
+                <th>
+                    @if($service_center->status == '1')
+                        <a class="btn btn-xs btn-danger" href="{{ route('admin.service_center.edit', ['service_center' => $service_center->id]) }}" data-ajax="true">Unapprove</a>
+                    @else
+                        <a class="btn btn-xs btn-success" href="{{ route('admin.service_center.edit', ['service_center' => $service_center->id]) }}" data-ajax="true">Approve</a>
+                    @endif
+                </th>
             </tr>
             @endforeach
             </tbody>

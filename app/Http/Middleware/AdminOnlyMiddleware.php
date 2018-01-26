@@ -16,7 +16,7 @@ class AdminOnlyMiddleware
      */
     public function handle($request, Closure $next, $guard = null)
     {
-    	if(!Auth::guard($guard)->check() /*or !Auth::user()->hasPermission('visit-dashboard')*/){
+    	if(!Auth::guard($guard)->check() or !Auth::user()->hasPermission('view_admin_dashboard') ){
 
 		    if ($request->ajax()) {
 			    return response( 'Unauthorized.', 401 );

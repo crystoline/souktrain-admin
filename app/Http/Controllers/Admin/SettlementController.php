@@ -16,7 +16,9 @@ class SettlementController extends Controller
      */
     public function index()
     {
-        return view('admin.settlement.index', [
+	    $this->authorize('browse-settlement', Settlement::class);
+
+	    return view('admin.settlement.index', [
         	'settlements' => Settlement::orderBy('status', 'ASC')->paginate(100)
         ]);
     }
@@ -73,6 +75,7 @@ class SettlementController extends Controller
      */
     public function update(Request $request, Settlement $settlement)
     {
+	    $this->authorize('update-settlement', $settlement);
         switch ($settlement->status){
 	        case '-1' : $settlement->status = '0'; break;
 	        case '0' : $settlement->status = '1'; break;

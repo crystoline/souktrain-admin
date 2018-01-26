@@ -11,13 +11,17 @@ use Illuminate\Support\Facades\Validator;
 
 class RoleController extends Controller
 {
-    /**
+	public function __construct() {
+	}
+
+	/**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
+	    $this->authorize('browse-role', Role::class);
         return view('admin.role.index', ['roles' => Role::orderBy('name', 'ASC')->get()]);
     }
 
@@ -28,6 +32,7 @@ class RoleController extends Controller
      */
     public function create()
     {
+	    $this->authorize('create-role', Role::class);
         return view('admin.role.create');
     }
 
@@ -39,6 +44,7 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
+	    $this->authorize('create-role', Role::class);
 	    $validator =  Validator::make($request->all(),[
 		    'name'          => 'required|unique:roles,name',
 		    'display_name'  => 'required'
@@ -60,9 +66,9 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Role $role)
     {
-        //
+	    $this->authorize('update-role', $role);
     }
 
     /**
@@ -73,6 +79,7 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
+	    $this->authorize('update-role', $role);
     	//dd(Permission::groupPermissions(''));
         return view('admin.role.edit', ['role' => $role]);
     }
@@ -86,6 +93,8 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
+	    $this->authorize('update-role', $role);
+
 	    $validator =  Validator::make($request->all(),[
 		    'name'          => 'required|unique:roles,name,'.$role->id,
 		    'display_name'  => 'required'
@@ -107,9 +116,9 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Role $role)
     {
-        //
+	    $this->authorize('delete-role', $role);
     }
 
 
@@ -120,6 +129,7 @@ class RoleController extends Controller
 	 * @return \Illuminate\Http\RedirectResponse
 	 */
     public function updatePermissions(Request $request, Role $role){
+	    $this->authorize('update-role', $role);
 
     	$validator =  Validator::make($request->all(),[
 		    //'permissions' => 'required',
@@ -136,4 +146,18 @@ class RoleController extends Controller
     	session()->flash('message', $role->name.': Permissions were updated');
 	    return redirect()->route('admin.role.edit', ['role'=> $role->id]);
     }
+//	protected function resourceAbilityMap()
+//	{
+//		return [
+//			'index' => 'browse',
+//			'show' => 'view',
+//			'create' => 'create',
+//			'store' => 'create',
+//			'edit' => 'update',
+//			'update' => 'update',
+//			'updatePermissions' =>'update',
+//			'destroy' => 'delete',
+//		];
+//	}
+
 }

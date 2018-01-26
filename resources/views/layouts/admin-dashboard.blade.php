@@ -574,7 +574,22 @@
 
 <!-- Init JavaScript -->
 <script src="{{ asset('admin/dist/js/init.js') }}"></script>
-<script src="{{ asset('admin/dist/js/dashboard-data.js') }}"></script>
+{{--<script src="{{ asset('admin/dist/js/dashboard-data.js') }}"></script>--}}
+<script>
+    $(window).load(function(){
+        window.setTimeout(function(){
+            $.toast({
+                heading: 'Hello {{ auth()->user()->profile->fullName }}.',
+                text: 'See the left navigation for menus',
+                position: 'top-right',
+                loaderBg:'#f0c541',
+                icon: 'success',
+                hideAfter: 5000,
+                stack: 6
+            });
+        }, 3000);
+    });
+</script>
 </body>
 
 </html>

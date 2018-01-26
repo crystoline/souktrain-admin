@@ -132,7 +132,7 @@ function do_ajax(options){
         url: options.url,
         method: options.method,//type of posting the data
         data: options.data,
-
+        type: 'text',
         cache: false,
         contentType: false,
         processData: false,
@@ -165,7 +165,15 @@ function do_ajax(options){
                     msg.fadeTo(5000, 500).slideUp(500, function(){
                         $(this).alert('close');
                     });
-                    dest.append(xhr.responseText);
+
+                    var msg = 'Unkown response';
+
+                    if(xhr.responseJSON && xhr.responseJSON.message){
+                        msg = xhr.responseJSON.message;
+                    }
+                    dest.append(`
+                        <div class="alert alert-danger">${msg}</div>
+                    `);
                     console.log(xhr);
             }
             //what to do in error

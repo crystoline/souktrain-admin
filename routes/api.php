@@ -70,11 +70,14 @@ Route::group(['namespace'=>'Api', /*'middleware' => ['auth:api']*/],function() {
 
 		Route::get('/plan', ['as' => 'api.user.plan', 'uses' => 'UserPlan@index']);
 		Route::post('/plan/subscribe', ['as' => 'api.user.plan.subscribe', 'uses' => 'UserPlan@subscribe']); //post
-		Route::get('/plan/{plan}/down-line', ['as' => 'api.user.plan.down-line', 'uses' => 'UserPlan@downLine']);
+		Route::get('/plan/{plan}/down-line', ['as' => 'api.user.plan.down-line', 'uses' => 'UserPlan@downLine']);Route::get('/plan/{plan}/down-line2', ['as' => 'api.user.plan.down-line2', 'uses' => 'UserPlan@downLine2']);
 		Route::get('/plan/{plan}/up-line', ['as' => 'api.user.plan.up-line', 'uses' => 'UserPlan@upLine'])->where(['user' => '[0-9]+']);
 
 	});
+	Route::post('store/payment', 'StoreController@payment');
 });
+
 Route::any('/dump',function(Request $request){
 	return json_encode($request->all());
 });
+

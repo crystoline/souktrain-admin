@@ -63,7 +63,7 @@
                             $group_permission_ids = $permissions->pluck('id')->toArray();
                             $all_set = count(array_intersect($group_permission_ids, $role_permission_ids)) == count($group_permission_ids);
                         @endphp
-                    <div class="col-md-4">
+                    <div class="col-md-4" style="min-height: 200px">
                         <fieldset style="margin-top: 20px">
                             <legend>
 

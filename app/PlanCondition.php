@@ -4,6 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property mixed plan_id
+ * @property mixed level
+ * @property mixed title
+ * @property mixed action
+ */
 class PlanCondition extends Model
 {
 	protected $fillable = [
@@ -16,6 +22,7 @@ class PlanCondition extends Model
 		'amount',
 		'user_account_type_id',
 		'action',
+		'sub_action',
 		'title'
 	];
 

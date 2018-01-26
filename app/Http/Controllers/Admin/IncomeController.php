@@ -18,6 +18,7 @@ class IncomeController extends Controller
      */
     public function index()
     {
+    	$this->authorize('browse-income', Income::class);
     	return view('admin.income.index');
         //return json_encode(Income::get());
     }
@@ -101,6 +102,7 @@ class IncomeController extends Controller
 
     public function makeSettlement(Request $request, $owner)
     {
+	    $this->authorize('manage-income', Income::class);
     	$data = ($request->input('income_ids'));
     	//dd($data);
 		$validator= Validator::make($request->all(), [

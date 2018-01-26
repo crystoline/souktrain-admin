@@ -4,6 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property mixed last_name
+ * @property mixed first_name
+ */
 class Profile extends Model
 {
     protected $fillable = [
@@ -27,6 +31,10 @@ class Profile extends Model
     public function user(){
         return $this->BelongsTo(User::class);
     }
+    public function getFullNameAttribute(){
+    	return "{$this->first_name} {$this->last_name}";
+    }
+
 
 	public function accountInfo(){
 		return $this->hasOne(AccountInfo::class);
@@ -34,5 +42,9 @@ class Profile extends Model
     public function profileUpdate()
     {
         return $this->hasOne(ProfileUpdate::class,'profile_id','id');
+    }
+
+    public function serviceCenter(){
+		return $this->belongsTo(ServicCenter::class, 'service_center_id', 'id');
     }
 }

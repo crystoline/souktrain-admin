@@ -18,6 +18,7 @@ class PlanConditionController extends Controller
      */
     public function index()
     {
+    	$this->authorize('browse-plan_condition', PlanCondition::class);
 	    $plans_condition  = PlanCondition::orderBy('plan_id', 'ASC')
 	                                     ->orderBy('level', 'ASC')
 	                                     ->with(['plan', 'userAccountType'])->get();
@@ -33,6 +34,7 @@ class PlanConditionController extends Controller
      */
     public function create()
     {
+	    $this->authorize('create-plan_condition', PlanCondition::class);
 
         return view('admin.plan-condition.create', [
         	'plans'         => Plan::orderBy('name', 'ASC')->get(),
@@ -49,6 +51,8 @@ class PlanConditionController extends Controller
      */
     public function store(Request $request)
     {
+	    $this->authorize('create-plan_condition', PlanCondition::class);
+
 	    $validator = Validator::make(
 		    $request->all( ),
 		    [
@@ -57,7 +61,7 @@ class PlanConditionController extends Controller
 			    'level' => 'required',
 			    'min' => 'required',
 			    'limits' => 'required',
-			    'action' => 'required'
+			    'action' => 'required',
 		    ]
 	    );
 
@@ -92,6 +96,8 @@ class PlanConditionController extends Controller
      */
     public function edit(PlanCondition $plan_condition)
     {
+	    $this->authorize('update-plan_condition', $plan_condition);
+
 	    return view('admin.plan-condition.edit', [
 		    'plans'         => Plan::orderBy('name', 'ASC')->get(),
 		    'account_types' => UserAccountType::orderBy('name', 'ASC')->get(),
@@ -109,6 +115,7 @@ class PlanConditionController extends Controller
      */
     public function update(Request $request, PlanCondition $plan_condition)
     {
+	    $this->authorize('update-plan_condition', $plan_condition);
 	    $validator = Validator::make(
 		    $request->all( ),
 		    [

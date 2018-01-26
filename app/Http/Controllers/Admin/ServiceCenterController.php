@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+use App\ServicCenter;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -14,6 +15,7 @@ class ServiceCenterController extends Controller
      */
     public function index()
     {
+    	$this->authorize('browse-service_center', ServicCenter::class);
         $service_centers = DB::table('servic_centers')->get();
 
         return view( 'admin.service_center.index', [ 'service_centers' => $service_centers ] );
@@ -57,11 +59,13 @@ class ServiceCenterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(ServicCenter $service_center)
     {
-        $serviceCenter_id = request()->segment(3);
-        $service_center = DB::table('servic_centers')->where('id',$serviceCenter_id)->first();
-        $profile = DB::table('profiles')->where('user_id', $service_center->user_id)->first();
+//        $serviceCenter_id = request()->segment(3);
+//        $service_center = DB::table('servic_centers')->where('id',$serviceCenter_id)->first();
+	    $this->authorize('browse-service_center', $service_center);
+
+	    $profile = DB::table('profiles')->where('user_id', $service_center->user_id)->first();
 
         return view( 'admin.service_center.edit', ['service_center'=> $service_center,'profile' => $profile] );
     }
@@ -73,13 +77,13 @@ class ServiceCenterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ServicCenter $service_center)
     {
 
-       $id = request()->segment(3);
-        $service_center = DB::table('servic_centers')->where('id',$id)->first();
+//       $id = request()->segment(3);
+//       $service_center = DB::table('servic_centers')->where('id',$id)->first();
      //var_dump($service_center);
-
+	    $this->authorize('browse-service_center', $service_center);
           if($service_center->status ==='0') {
               $status ='1';
           }else{

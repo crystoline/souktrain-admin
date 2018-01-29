@@ -17,5 +17,6 @@ class ServicCenter extends Model
 
     public function myAction(){
         $this->user;
+
     }
 }

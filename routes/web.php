@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
 	if(config('app.env') == 'production') {
-		return redirect('https://member.souktrain.com');
+		return redirect('https://members.souktrain.com');
 	}
     return view('welcome');
 

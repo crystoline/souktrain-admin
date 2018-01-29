@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-	if(config('APP_ENV' == 'production')) {
+	if(config('APP_ENV') == 'production') {
 		return redirect('https://member.souktrain.com');
 	}
     return view('welcome');

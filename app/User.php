@@ -630,8 +630,9 @@ class User extends Authenticatable
 			case 'credit_service_center':
 				$service_center = $this->profile->serviceCenter;
 				if ( $service_center and $planCondition->amount ) {
+					$amount = $matrix_amount? :$planCondition->amount;
 					$service_center_income = $service_center->income()->create( [
-						'amount'      => $matrix_amount? :$planCondition->amount,
+						'amount'      => $amount,
 						'description' => 'Reward from member upgrade to ' . $planCondition->plan->name
 					] );
 					if ( $service_center_income ) {
